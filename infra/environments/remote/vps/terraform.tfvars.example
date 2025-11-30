@@ -14,28 +14,8 @@ docker_socket_path = "/var/run/docker.sock"
 project_root       = "/opt/services/kitchen"  # Absolute path on remote host
 storage_path       = "/opt/storages/kitchen"  # Path where configs and data mount
 
-cf_api_email         = "you@example.com"
-cf_dns_api_token     = "your-cloudflare-token"
-traefik_credential   = "user:$apr1$..."  # Generate with: htpasswd -nb user pass
-
-mariadb_port         = 3306
-mariadb_root_password = "your-secure-password"
-
-postgres_user     = "postgres"
-postgres_password = "your-secure-password"
-
-grafana_user     = "admin"
-grafana_password  = "your-secure-password"
-
-# Routed services are enabled when a hostname is provided. Remove entries to disable.
-router_hostnames = {
-  traefik    = "edge.example.com"
-  phpmyadmin = "pma.example.com"
-  dash       = "dash.example.com"
-  prometheus = "prometheus.example.com"
-  grafana    = "grafana.example.com"
-}
-
-# Optional: disable databases for this environment
-# enable_mariadb  = true
-# enable_postgres = true
+vault_admin_token = "generate-a-strong-token"
+vault_database_url = "postgresql://user:password@postgres:5432/vault"
+vault_hostname     = "vault.example.com"
+public_network_name  = "public"
+kitchen_network_name = "kitchen"

@@ -3,16 +3,17 @@ locals {
   project_root          = var.project_root != null ? abspath(var.project_root) : local.detected_project_root
   storage_path          = var.storage_path
 
-  config_dir = "${local.storage_path}/config"
+  volumes_dir = "${local.storage_path}/volumes"
   container_labels = {
-    "traefik.enable"                             = "true"
-    "traefik.http.routers.dash.rule"             = "Host(`${var.hostname}`)"
-    "traefik.http.routers.dash.tls.certresolver" = "localResolver"
+    "traefik.enable"                                   = "true"
+    "traefik.http.routers.vault.rule"                  = "Host(`${var.hostname}`)"
+    "traefik.http.routers.vault.entrypoints"           = "websecure"
+    "traefik.http.routers.vault.tls.certresolver"      = "cloudflare"
   }
 }
 
-resource "docker_image" "dash" {
-  name = "kitchen/dash:latest"
+resource "docker_image" "vault" {
+  name = "kitchen/vault:latest"
 
   build {
     context    = path.module
@@ -20,30 +21,30 @@ resource "docker_image" "dash" {
   }
 }
 
-resource "docker_container" "dash" {
-  name    = "dash"
-  image   = docker_image.dash.image_id
+resource "null_resource" "ensure_volume_dir" {
+  triggers = {
+    path = "${local.volumes_dir}/vault"
+  }
+
+  provisioner "local-exec" {
+    command = "mkdir -p ${self.triggers.path}"
+  }
+}
+
+resource "docker_container" "vault" {
+  name    = "vault"
+  image   = docker_image.vault.image_id
   restart = "always"
 
-  mounts {
-    target    = "/www/assets/pages"
-    source    = "${local.config_dir}/dash/pages"
-    type      = "bind"
-    read_only = true
-  }
+  env = [
+    "ADMIN_TOKEN=${var.admin_token}",
+    "DATABASE_URL=${var.database_url}"
+  ]
 
   mounts {
-    target    = "/www/assets/icons"
-    source    = "${local.config_dir}/dash/assets/icons"
-    type      = "bind"
-    read_only = true
-  }
-
-  mounts {
-    target    = "/www/assets/config.yml"
-    source    = "${local.config_dir}/dash/config.yml"
-    type      = "bind"
-    read_only = true
+    target = "/data"
+    source = "${local.volumes_dir}/vault"
+    type   = "bind"
   }
 
   dynamic "labels" {
@@ -58,4 +59,10 @@ resource "docker_container" "dash" {
   networks_advanced {
     name = var.public_network_name
   }
+
+  networks_advanced {
+    name = var.kitchen_network_name
+  }
+
+  depends_on = [null_resource.ensure_volume_dir]
 }

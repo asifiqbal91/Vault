@@ -1,3 +1,0 @@
-FROM phpmyadmin:latest
-
-
