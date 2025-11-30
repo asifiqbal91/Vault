@@ -8,14 +8,12 @@ Take control of your passwords. Store them securely on your own server, keeping 
 
 - Copy an example vars file:
   `cp infra/environments/local/terraform.tfvars.example infra/environments/local/terraform.tfvars`
-- Fill in secrets and hostnames (`router_hostnames`) for routed services.
-- Sync configs: `cd infra && python3 sync-configs.py local` (or `remote/*`).
+- Fill in Vault settings: `vault_admin_token`, `vault_database_url`, `vault_hostname`, and network names if they differ (`public_network_name`, `kitchen_network_name`).
 - Deploy: `cd infra/environments/local && terraform init && terraform apply`
 
 ## Repo layout
 
-- `infra/` – Terraform modules, env configs
-- `config/` – Service config templates synced by `sync-configs.py`
+- `infra/` – Terraform modules and env configs for the Vault service
 
 ## Report An Issue
 

@@ -3,7 +3,7 @@
 
 docker_host = "unix:///var/run/docker.sock"
 # docker_socket_path = "/var/run/docker.sock"  # Optional, defaults to above
-# storage_path = "/mnt/workbench/storages/kitchen"  # Required for sync-configs
+# storage_path = "/mnt/workbench/storages/vault"
 
 vault_admin_token = "generate-a-strong-token"
 vault_database_url = "postgresql://user:password@postgres:5432/vault"
