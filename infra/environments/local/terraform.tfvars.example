@@ -1,0 +1,32 @@
+# Example configuration for local deployment
+# Copy this to terraform.tfvars and fill in your values
+
+docker_host = "unix:///var/run/docker.sock"
+# docker_socket_path = "/var/run/docker.sock"  # Optional, defaults to above
+# storage_path = "/mnt/workbench/storages/kitchen"  # Required for sync-configs
+
+cf_api_email         = "you@example.com"
+cf_dns_api_token     = "your-cloudflare-token"
+traefik_credential   = "user:$apr1$..."  # Generate with: htpasswd -nb user pass
+
+mariadb_port         = 3306
+mariadb_root_password = "your-secure-password"
+
+postgres_user     = "postgres"
+postgres_password = "your-secure-password"
+
+grafana_user     = "admin"
+grafana_password  = "your-secure-password"
+
+# Routed services are enabled when a hostname is provided. Remove entries to disable.
+router_hostnames = {
+  traefik    = "traefik.local"
+  phpmyadmin = "pma.local"
+  dash       = "dash.local"
+  prometheus = "prometheus.local"
+  grafana    = "grafana.local"
+}
+
+# Optional: disable databases for this environment
+# enable_mariadb  = true
+# enable_postgres = true

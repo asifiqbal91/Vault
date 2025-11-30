@@ -1,0 +1,36 @@
+# --------------------------
+# Terraform Standard Ignores
+# --------------------------
+
+# Ignore the Local Terraform state files.
+*.tfstate
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.backup
+
+# Ignore the Terraform working directory.
+.terraform/
+.terraform.lock.hcl
+
+# Ignore the Crash logs.
+crash.log
+crash.*.log
+
+# Ignore the Sensitive override files.
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore the Terraform Sensitive variable files.
+*.tfvars
+*.tfvars.json
+
+# Ignore the Terraform plan output files.
+*.plan
+
+# Ignore Python cache files.
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
