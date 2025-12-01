@@ -2,18 +2,45 @@
 
 [![License MIT](https://img.shields.io/badge/License-MIT-blue)](https://choosealicense.com/licenses/mit)
 
-Take control of your passwords. Store them securely on your own server, keeping your data private and under your lock.
+Vault is a self-hosted way to keep passwords under your control. Deploy it to your own infrastructure so your data stays private and under your lock and key.
+
+## What you get
+
+- Self-hosted password storage with configurable networking and hostname
+- Terraform-first deployment so you can spin up or tear down environments quickly
+- Sensible defaults via example variables to get running locally fast
+
+## Prerequisites
+
+- Terraform installed locally
+- Access to the target infrastructure (networks, DNS, and database reachable from where Terraform runs)
 
 ## Quick start
 
-- Copy an example vars file:
-  `cp infra/environments/local/terraform.tfvars.example infra/environments/local/terraform.tfvars`
-- Fill in Vault settings: `vault_admin_token`, `vault_database_url`, `vault_hostname`, and network names if they differ (`public_network_name`, `kitchen_network_name`).
-- Deploy: `cd infra/environments/local && terraform init && terraform apply`
+1) Copy example variables:
+   ```bash
+   cp infra/environments/local/terraform.tfvars.example infra/environments/local/terraform.tfvars
+   ```
+2) Set required values in `infra/environments/local/terraform.tfvars`:
+   - `vault_admin_token`
+   - `vault_database_url`
+   - `vault_hostname`
+   - network names if they differ: `public_network_name`, `kitchen_network_name`
+3) Deploy the local environment:
+   ```bash
+   cd infra/environments/local
+   terraform init
+   terraform apply
+   ```
 
 ## Repo layout
 
-- `infra/` – Terraform modules and env configs for the Vault service
+- `infra/` — Terraform modules and per-environment configs for the Vault service
+
+## Operations
+
+- Upgrade or destroy: rerun `terraform apply` or `terraform destroy` from `infra/environments/<env>`.
+- Config changes: edit the `terraform.tfvars` for your environment, then apply.
 
 ## Report An Issue
 
