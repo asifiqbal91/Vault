@@ -23,7 +23,7 @@ resource "docker_image" "vault" {
 
 resource "null_resource" "ensure_volume_dir" {
   triggers = {
-    path = "${local.volumes_dir}/vault"
+    path = "${local.volumes_dir}"
   }
 
   provisioner "local-exec" {
@@ -43,7 +43,7 @@ resource "docker_container" "vault" {
 
   mounts {
     target = "/data"
-    source = "${local.volumes_dir}/vault"
+    source = "${local.volumes_dir}"
     type   = "bind"
   }
 
