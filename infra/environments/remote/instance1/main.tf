@@ -10,10 +10,10 @@ terraform {
 }
 
 provider "docker" {
-  host          = var.docker_host
-  ca_material   = var.docker_ca_material
-  cert_material = var.docker_cert_material
-  key_material  = var.docker_key_material
+  host          = trimspace(var.docker_host)
+  ca_material   = var.docker_ca_material == null ? null : trimspace(var.docker_ca_material)
+  cert_material = var.docker_cert_material == null ? null : trimspace(var.docker_cert_material)
+  key_material  = var.docker_key_material == null ? null : trimspace(var.docker_key_material)
 }
 
 locals {
@@ -23,11 +23,11 @@ locals {
 module "vault" {
   source = "../../../modules/vault"
 
-  project_root         = var.project_root
-  storage_path         = var.storage_path
-  public_network_name  = var.public_network_name
-  kitchen_network_name = var.kitchen_network_name
+  project_root         = var.project_root == null ? null : trimspace(var.project_root)
+  storage_path         = var.storage_path == null ? null : trimspace(var.storage_path)
+  public_network_name  = trimspace(var.public_network_name)
+  kitchen_network_name = trimspace(var.kitchen_network_name)
   hostname             = local.vault_hostname
-  admin_token          = var.vault_admin_token
-  database_url         = var.vault_database_url
+  admin_token          = trimspace(var.vault_admin_token)
+  database_url         = trimspace(var.vault_database_url)
 }
