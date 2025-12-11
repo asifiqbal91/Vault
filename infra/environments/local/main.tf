@@ -18,7 +18,7 @@ locals {
 }
 
 module "vault" {
-  source = "../../../modules/vault"
+  source = "../../modules/vault"
 
   project_root         = var.project_root == null ? null : trimspace(var.project_root)
   storage_path         = var.storage_path == null ? null : trimspace(var.storage_path)
