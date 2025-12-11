@@ -29,7 +29,7 @@ variable "docker_socket_path" {
 }
 
 variable "project_root" {
-  description = "Absolute path to the kitchen project root on the remote host."
+  description = "Absolute path to the Vault project root on the remote host."
   type        = string
 }
 

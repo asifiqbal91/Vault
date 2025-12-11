@@ -1,5 +1,5 @@
 variable "project_root" {
-  description = "Absolute path to the kitchen project root (auto-detected when null)."
+  description = "Absolute path to the Vault project root (auto-detected when null)."
   type        = string
   default     = null
 }
