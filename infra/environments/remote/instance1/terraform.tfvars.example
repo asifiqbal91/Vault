@@ -12,7 +12,7 @@ docker_host = "ssh://root@203.0.113.10:22"
 
 docker_socket_path = "/var/run/docker.sock"
 project_root       = "/opt/services/vault"
-storage_path       = "/opt/storages/vault"
+storage_root       = "/opt/storages/vault"
 
 vault_admin_token = "generate-a-strong-token"
 vault_database_url = "postgresql://user:password@postgres:5432/vault"

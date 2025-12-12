@@ -33,8 +33,8 @@ variable "project_root" {
   type        = string
 }
 
-variable "storage_path" {
-  description = "Absolute path where configs and data are stored (required for sync-configs)."
+variable "storage_root" {
+  description = "Absolute path where configs and data are stored."
   type        = string
   default     = null
 }

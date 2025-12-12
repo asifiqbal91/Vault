@@ -4,7 +4,7 @@ variable "project_root" {
   default     = null
 }
 
-variable "storage_path" {
+variable "storage_root" {
   description = "Absolute path where configs and data are stored."
   type        = string
 }

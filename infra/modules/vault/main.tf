@@ -1,9 +1,9 @@
 locals {
   detected_project_root = abspath("${path.module}/../../..")
   project_root          = var.project_root != null ? abspath(var.project_root) : local.detected_project_root
-  storage_path          = var.storage_path
+  storage_root          = var.storage_root
 
-  volumes_dir = "${local.storage_path}/volumes"
+  volumes_dir = "${local.storage_root}/volumes"
   container_labels = {
     "traefik.enable"                                   = "true"
     "traefik.http.routers.vault.rule"                  = "Host(`${var.hostname}`)"
