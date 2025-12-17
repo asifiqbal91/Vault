@@ -24,7 +24,7 @@ module "vault" {
   source = "../../modules/vault"
 
   project_root         = var.project_root == null ? null : trimspace(var.project_root)
-  storage_root         = var.storage_root == null ? null : trimspace(var.storage_root)
+  storage_root         = trimspace(var.storage_root)
   public_network_name  = trimspace(var.public_network_name)
   kitchen_network_name = trimspace(var.kitchen_network_name)
   hostname             = local.vault_hostname
