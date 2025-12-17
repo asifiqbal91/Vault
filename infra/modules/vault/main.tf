@@ -1,7 +1,7 @@
 locals {
   detected_project_root = abspath("${path.module}/../../..")
   project_root          = var.project_root != null ? abspath(var.project_root) : local.detected_project_root
-  storage_root          = var.storage_root
+  storage_root          = abspath(var.storage_root)
 
   volumes_dir = "${local.storage_root}/volumes"
   container_labels = {
